@@ -8,7 +8,7 @@ import M3_functions as fnc
 import numpy as np
 
 #Data asssumes : 2 lecturers, T_PS = 5, 3 students, 5 choices, 10 project preferences
-T_PS = 5
+T_PS = 6
 C = fnc.read_preferences('M3_TestingData.xls','ij_choice_input')
 number_of_students, number_of_projects = C.shape
 print("Students: ", number_of_students, "Projects:", number_of_projects)
