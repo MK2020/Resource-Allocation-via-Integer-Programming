@@ -37,16 +37,15 @@ prob += objective_function
 
 
 #CONSTRAINTS
-# Each student can only be allocated a project that is part of their preferences subset
+#1 Each student can only be allocated a project that is part of their preferences subset
 for student, project in x:
     prob += x[student, project] <= float(C[student, project]) #, "Preference_Constraint"
 
-# Each student should be allocated to only 1 project
+#2 Each student should be allocated to only 1 project
 for student in range(number_of_students):
     prob += sum(x[(student, project)] for project in range(number_of_projects)) == 1 #, "Student_Constraint"
 
-#THIS CONSTRAINT IS REDUNDANT
-# Each project should be allocated to at most 1 student
+#3 (redundant) Each project should be allocated to at most 1 student
 for project in range(number_of_projects):
     prob += sum(x[(student, project)] for student in range(number_of_students)) <= 1 #, "Project_Constraint"
 
@@ -72,7 +71,7 @@ fnc.sort_allocation(prob,allocation)
 # print("Xij is:", allocation)
 Ski = np.dot(L,allocation.T)
 lect_count = np.sum(Ski,axis=1)
-# print("matrix mult Pkj, Xji:",Ski)
+# print("matrix mult(Pkj, Xji):",Ski)
 print("# of proj each lecturer is supervising:", lect_count) #nomo columns
 
 
