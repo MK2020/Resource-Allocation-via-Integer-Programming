@@ -6,16 +6,21 @@ whilst putting a upper bound (TPS),on the number of projects each lecturer is al
 from pulp import *
 import M3_functions as fnc
 import numpy as np
+import time
 
 #Data asssumes : 2 lecturers, T_PS = 5, 3 students, 5 choices, 10 project preferences
-T_PS = 6
-C = fnc.read_preferences('M3_TestingData.xls','ij_choice_input') #ij_choice_input  or ij_choice_simple
+T_PS = 2
+print("Superviser Limit:", T_PS)
+C = fnc.read_preferences('M3_TestingData.xls','ij_choice_simple') #ij_choice_input  or ij_choice_simple
 number_of_students, number_of_projects = C.shape
 print("Students: ", number_of_students, "Projects:", number_of_projects)
 
-L = fnc.read_preferences('M3_TestingData.xls','kj_input') #kj_input  or kj_simple
+L = fnc.read_preferences('M3_TestingData.xls','kj_simple') #kj_input  or kj_simple
 number_of_lecturers, number_of_projects = L.shape
 print("Lecturers: ", number_of_lecturers, "Projects:", number_of_projects)
+
+# Time it takes to run M3 start point
+start = time.time()
 
 # Create the 'prob' variable to contain the problem data
 prob = LpProblem("SPA Model_3", LpMinimize)
@@ -60,6 +65,16 @@ for lecturer in range(number_of_lecturers):
 # or
 prob.solve(GUROBI())
 
+# The optimised objective function value is printed to the screen
+print("Objective Fnc= ", value(prob.objective))
+
+# The status of the solution is printed to the screen
+print("Status:", LpStatus[prob.status])
+
+# Time it takes to run M3 end point
+end = time.time()
+# print("Time elapsed:", end - start)
+
 # Each of the variables is printed with it's resolved optimum value
 allocation = np.zeros((number_of_students,number_of_projects))
 fnc.sort_allocation(prob,allocation)
@@ -71,15 +86,9 @@ Ski = np.dot(L,allocation.T)
 lect_count = np.sum(Ski,axis=1)
 final_lect_count = np.sum(lect_count, axis=0)
 # print("alloc (lecturer, student):")
-# print(Ski)
-print("# of proj each lecturer is supervising:", lect_count) #nomo columns
-
-
-# The optimised objective function value is printed to the screen
-print("Objective Fnc= ", value(prob.objective))
-
-# The status of the solution is printed to the screen
-print("Status:", LpStatus[prob.status])
+print("S{k,i} for all k:")
+print(Ski)
+print("S{k,i}:", lect_count) #nomo columns
 
 # Retrieve allocation rankings
 rank = []
