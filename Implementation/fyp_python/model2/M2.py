@@ -6,13 +6,17 @@ Author: Mwanakombo Hussein
 from pulp import *
 import M2_functions as fnc
 import numpy as np
+import time
 
 #Retrieving data from excel
-C = fnc.read_preferences('M2_TestingData.xls','Complex')
+C = fnc.read_preferences('M2_TestingData.xls','Realistic')
 
 #Data asssumes : 109 students, 10 choices, 181 project preferences
 number_of_students, number_of_projects = C.shape
 print("Students: ", number_of_students, "Projects:", number_of_projects)
+
+# Time it takes to run M3 start point
+start = time.time()
 
 # Create the 'prob' variable to contain the problem data
 prob = LpProblem("SPA_M2", LpMinimize)
@@ -44,10 +48,14 @@ for student, project in x:
     prob += x[student, project] <= float(C[student, project]) #, "Preference_Constraint"
 
 # The problem is solved using PuLP's choice of Solver
-prob.solve() #or prob.solve(CPLEX()) etc
+prob.solve(GUROBI()) #or prob.solve(CPLEX()) etc
 
 # The status of the solution is printed to the screen
 print("Status:", LpStatus[prob.status])
+
+# Time it takes to run M3 end point
+end = time.time()
+print("Time elapsed:", end - start)
 
 # Each of the variables is printed with it's resolved optimum value
 allocation = np.zeros((number_of_students,number_of_projects))

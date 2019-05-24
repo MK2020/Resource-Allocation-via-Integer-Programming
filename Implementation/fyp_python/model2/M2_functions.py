@@ -32,7 +32,7 @@ def sort_allocation(prob,unsorted_allocation):
         coords = int(filtered[:comma_idx]), int(filtered[comma_idx+2:])
         #create allocation array with coords and set their respective values
         unsorted_allocation[coords] = v.varValue
-    print(unsorted_allocation)
+    #print(unsorted_allocation)
 
 #Export allocation and ranks to xls workbook
 def write_allocation(allocation,rank):
