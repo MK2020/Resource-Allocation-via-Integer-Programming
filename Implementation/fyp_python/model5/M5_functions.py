@@ -1,5 +1,5 @@
 """
-Functions : Optimization Model 4 functions
+Functions : Optimization Model 5 functions
 Author: Mwanakombo Hussein
 """
 from pulp import *
@@ -39,20 +39,20 @@ def sort_allocation(prob,unsorted_allocation):
 
 #Export allocation and ranks to xls workbook
 def write_allocation(allocation,rank, lect_count):
-    workbook = xlsxwriter.Workbook('M4_output_alloc_TPS1.xlsx')
-    worksheet1 = workbook.add_worksheet('Model4_alloc')
+    workbook = xlsxwriter.Workbook('M5_output_alloc_TPS1.xlsx')
+    worksheet1 = workbook.add_worksheet('Model5_alloc')
     row = 0
     for col, data in enumerate(allocation.T):
         worksheet1.write_column(row,col, data)
     #Add worksheet of allocation ranks
-    worksheet2 = workbook.add_worksheet('Model4_alloc_ranks')
+    worksheet2 = workbook.add_worksheet('Model5_alloc_ranks')
     row = 0
     col = 0
     for ranks in rank:
         worksheet2.write(row, col, ranks)
         row += 1
     #Add worksheet of lecturer supervision count
-    worksheet3 = workbook.add_worksheet('Model4_alloc_lect_count')
+    worksheet3 = workbook.add_worksheet('Model5_alloc_lect_count')
     row = 0
     col = 0
     for lect_counts in lect_count:
@@ -61,7 +61,7 @@ def write_allocation(allocation,rank, lect_count):
     workbook.close()
 
 # How to calculate total number of projects being supervised (by all lecturers)
-# X_interim = fnc.read_preferences('M4_TestingData.xls','alloc')
+# X_interim = fnc.read_preferences('M5_TestingData.xls','alloc')
 # ans =0
 # for lecturer in range(number_of_lecturers):
 #     ans += sum(P[lecturer, project] * sum(X_interim[student, project]
