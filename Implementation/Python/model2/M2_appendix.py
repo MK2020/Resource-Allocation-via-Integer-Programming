@@ -1,10 +1,7 @@
-
 """
 Model 2 : Allocate projects to students based on their preference rankings
 Author: Mwanakombo Hussein
 """
-# All code is availabe in Github repository:
-# https://github.com/MK2020/Student-Project-Allocation-using-0-1-Integer-Programming
 
 from pulp import *
 import M2_functions as fnc
@@ -13,7 +10,7 @@ import time
 
 #Retrieving data from excel : Input worksbook name, worksheet name
 C = fnc.read_preferences('M2_TestingData.xls','Realistic')
-
+gi
 #Data : 109 students, 10 choices, 181 project preferences
 number_of_students, number_of_projects = C.shape
 print("Students: ", number_of_students, "Projects:", number_of_projects)
