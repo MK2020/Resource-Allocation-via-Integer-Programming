@@ -10,7 +10,7 @@ import time
 
 #Retrieving data from excel : Input worksbook name, worksheet name
 C = fnc.read_preferences('M2_TestingData.xls','Realistic')
-gi
+
 #Data : 109 students, 10 choices, 181 project preferences
 number_of_students, number_of_projects = C.shape
 print("Students: ", number_of_students, "Projects:", number_of_projects)
@@ -34,13 +34,13 @@ for student in range(number_of_students):
             objective_function += x[(student, project)] * ((C[(student, project)]))
 prob += objective_function
 
-#Constaints
+#Constraints
 #1 Each student should be allocated to only 1 project
 for student in range(number_of_students):
      prob += sum(x[(student, project)] for project in range(number_of_projects)) == 1 #, "Student_Constraint"
 
 #2 Each project should be allocated to at most 1 student
-# Note: This contraint can be optimized away
+# Note: This constraint can be optimized away
 for project in range(number_of_projects):
     prob += sum(x[(student, project)] for student in range(number_of_students)) <= 1 #, "Project_Constraint"
 
@@ -59,7 +59,7 @@ end = time.time()
 print("Time elapsed:", end - start)
 
 # Each of the variables is printed with it's resolved optimum value
-# using function sort_allocation to fix lexographical string error
+# using function sort_allocation to fix lexicographical string error
 allocation = np.zeros((number_of_students,number_of_projects))
 fnc.sort_allocation(prob,allocation)
 
@@ -74,5 +74,5 @@ for student in range(number_of_students):
             rank.append(C[student, project])
 
 # Export allocation and ranks to xls workbook
-# using write_allocation function in functions.py
+# using write_allocation function in M2_functions.py
 fnc.write_allocation(allocation,rank)
