@@ -39,7 +39,7 @@ prob += objective_function
 for student in range(number_of_students):
      prob += sum(x[(student, project)] for project in range(number_of_projects)) == 1 #, "Student_Constraint"
 
-#2 (redundant) Each project should be allocated to at most 1 student
+#2 (NOT redundant) Each project should be allocated to at most 1 student
 for project in range(number_of_projects):
     prob += sum(x[(student, project)] for student in range(number_of_students)) <= 1 #, "Project_Constraint"
 
@@ -72,4 +72,4 @@ for student in range(number_of_students):
             rank.append(C[student, project])
 
 #Export allocation and ranks to xls workbook
-# fnc.write_allocation(allocation,rank)
+fnc.write_allocation(allocation,rank)

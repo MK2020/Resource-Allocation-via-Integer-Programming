@@ -9,13 +9,13 @@ import numpy as np
 import time
 
 #Data asssumes : 2 lecturers, T_PS = 5, 3 students, 5 choices, 10 project preferences
-T_PS = 7
+T_PS = 1
 print("Superviser Limit:", T_PS)
-C = fnc.read_preferences('M3_TestingData.xls','ij_choice_input') #ij_choice_input  or ij_choice_simple
+C = fnc.read_preferences('M3_TestingData.xls','ij_choice_simple') #ij_choice_input  or ij_choice_simple
 number_of_students, number_of_projects = C.shape
 print("Students: ", number_of_students, "Projects:", number_of_projects)
 
-L = fnc.read_preferences('M3_TestingData.xls','kj_input') #kj_input  or kj_simple
+L = fnc.read_preferences('M3_TestingData.xls','kj_simple') #kj_input  or kj_simple
 number_of_lecturers, number_of_projects = L.shape
 print("Lecturers: ", number_of_lecturers, "Projects:", number_of_projects)
 
@@ -46,7 +46,7 @@ for student, project in x:
 for student in range(number_of_students):
     prob += sum(x[(student, project)] for project in range(number_of_projects)) == 1 #, "Student_Constraint"
 
-#3 (redundant) Each project should be allocated to at most 1 student
+#3 (NOT redundant) Each project should be allocated to at most 1 student
 for project in range(number_of_projects):
     prob += sum(x[(student, project)] for student in range(number_of_students)) <= 1 #, "Project_Constraint"
 
@@ -88,7 +88,7 @@ lect_count = np.sum(Ski,axis=1)
 # print("alloc (lecturer, student):")
 # print("S{k,i} for all k:")
 # print(Ski)
-# print("S{k,i}:", lect_count) #nomo columns
+print("S{k,i}:", lect_count) #nomo columns
 
 # Retrieve allocation rankings
 rank = []
