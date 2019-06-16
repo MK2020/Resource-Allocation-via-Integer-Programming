@@ -38,7 +38,7 @@ def sort_allocation(prob,unsorted_allocation):
 
 #Export allocation and ranks to xls workbook
 def write_allocation(allocation,rank, lect_count):
-    workbook = xlsxwriter.Workbook('M3_output_alloc_lteIGNORENEW.xlsx')
+    workbook = xlsxwriter.Workbook('Results/M3_output_alloc_lteX.xlsx')
     worksheet1 = workbook.add_worksheet('Model3_alloc')
     row = 0
     for col, data in enumerate(allocation.T):

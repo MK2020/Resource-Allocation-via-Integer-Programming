@@ -9,7 +9,7 @@ import numpy as np
 import time
 
 #Retrieving data from excel
-C = fnc.read_preferences('M2_TestingData.xls','Realistic')
+C = fnc.read_preferences('Input_Data/M2_InputData.xls','Realistic')
 
 #Data asssumes : 109 students, 10 choices, 181 project preferences
 number_of_students, number_of_projects = C.shape

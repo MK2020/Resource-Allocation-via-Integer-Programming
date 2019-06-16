@@ -9,13 +9,13 @@ import numpy as np
 import time
 
 #Data asssumes : 2 lecturers, T_PS = 5, 3 students, 5 choices, 10 project preferences
-T_PS = 1
+T_PS = 3
 print("Superviser Limit:", T_PS)
-C = fnc.read_preferences('M3_TestingData.xls','ij_choice_simple') #ij_choice_input  or ij_choice_simple
+C = fnc.read_preferences('Input_Data/M3_InputData.xls','ij_choice_realistic') #ij_choice_realistic  or ij_choice_simple
 number_of_students, number_of_projects = C.shape
 print("Students: ", number_of_students, "Projects:", number_of_projects)
 
-L = fnc.read_preferences('M3_TestingData.xls','kj_simple') #kj_input  or kj_simple
+L = fnc.read_preferences('Input_Data/M3_InputData.xls','kj_realistic') #kj_realistic  or kj_simple
 number_of_lecturers, number_of_projects = L.shape
 print("Lecturers: ", number_of_lecturers, "Projects:", number_of_projects)
 
